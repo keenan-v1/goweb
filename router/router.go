@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/xorith/server/routes"
+	"github.com/xorith/goweb/routes"
 )
 
 // Router stores the router

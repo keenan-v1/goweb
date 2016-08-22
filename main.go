@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/xorith/server/router"
+	"github.com/xorith/goweb/router"
 
 	// Routes
-	_ "github.com/xorith/server/routes/home"
+	_ "github.com/xorith/goweb/routes/home"
 )
 
 func main() {

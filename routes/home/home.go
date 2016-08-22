@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/xorith/server/routes"
+	"github.com/xorith/goweb/routes"
 )
 
 var (
