@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
-<head>Test</head>
+<head>
+  <title>{{ .PageTitle }}</title>
+</head>
 <body>
   <h1>Test Template</h1>
-  <p>This is a test.</p>
+  <p>Request:</p>
+  <pre>{{ .Data.Request }}</pre>
+  <p>Vars:</p>
+  <pre>{{ .Data.Vars }}</pre>
+  <p>Route:</p>
+  <pre>{{ .Data.Route }}</pre>
 </body>
 </html>

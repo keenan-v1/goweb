@@ -2,35 +2,40 @@ package home
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/xorith/goweb/routes"
 )
 
+//HomeRoute is our route definition
 var (
-	this *routes.Route
+	HomeRoute *routes.Route
 )
 
+// init() will define HomeRoute and register it with routes.
 func init() {
-	this = routes.Register(routes.Route{
+	HomeRoute = &routes.Route{
 		Name:          "home",
 		Title:         "Home Page",
 		Path:          "/",
 		Controller:    Home,
 		TemplateFiles: []string{"./routes/home/home.html"},
-	})
+	}
+	routes.Register(HomeRoute)
+}
+
+// Model is the model home. hahaha no.
+type Model struct {
+	Request string
+	Vars    string
+	Route   string
 }
 
 // Home page handler (controller)
-func Home(r http.ResponseWriter, req *http.Request, vars map[string]string) {
-	s := fmt.Sprintf("%#v\n%#v\n%#v\n", this, req, vars)
-	if this == nil || this.View == nil {
-		r.Write([]byte(s))
-		r.Write([]byte("<br><b>Some shit went wrong man...</b>"))
-		return
-	}
-	this.View.Execute(r, nil)
-	log.Println(s)
-	r.Write([]byte(s))
+func Home(req *http.Request, vars map[string]string, model *routes.Model) {
+	mData := Model{}
+	mData.Request = fmt.Sprintf("%#v", req)
+	mData.Vars = fmt.Sprintf("%#v", vars)
+	mData.Route = fmt.Sprintf("%#v", HomeRoute)
+	model.Data = mData
 }
