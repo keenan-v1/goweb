@@ -1,7 +1,5 @@
 package routes
 
-import "net/http"
-
 // StaticRoute is a route that points to a specific folder
 type StaticRoute struct {
 	Filepath string
@@ -27,11 +25,6 @@ func (route *StaticRoute) GetPath() string {
 // GetFilepath returns the filepath of the static route
 func (route *StaticRoute) GetFilepath() string {
 	return route.Filepath
-}
-
-//ServeHTTP passes the vars along to the proper handler
-func (route *StaticRoute) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	// TODO
 }
 
 //RegisterStatic registers a templated route

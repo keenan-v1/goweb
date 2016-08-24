@@ -1,7 +1,5 @@
 package routes
 
-import "net/http"
-
 var (
 	routes map[string]Route
 )
@@ -22,7 +20,6 @@ const (
 
 // Route defines various endpoints and routes for the server
 type Route interface {
-	ServeHTTP(http.ResponseWriter, *http.Request)
 	GetName() string
 	GetPath() string
 	GetType() RouteType

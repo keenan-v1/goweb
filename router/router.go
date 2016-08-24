@@ -11,6 +11,9 @@ import (
 // Router stores the router
 // also comments are hard
 // This will get more work in the future.
+// TODO: See TODO in static.go - Add configurations
+// TODO: TODO: Do it yourself!
+// TODO: TODO: TODO: What's that? Rewrite this in Visual Basic?
 type Router struct {
 	router mux.Router
 }
@@ -25,7 +28,8 @@ func LoadRoutes() {
 		log.Printf("Loading %s (%s)", v.GetName(), v.GetPath())
 		switch v.GetType() {
 		case routes.Template:
-			router.HandleFunc(v.GetPath(), v.ServeHTTP)
+			route := v.(*routes.TemplateRoute)
+			router.HandleFunc(v.GetPath(), route.ServeHTTP)
 		case routes.Static:
 			route := v.(*routes.StaticRoute)
 			router.PathPrefix(v.GetPath()).
