@@ -10,6 +10,7 @@ import (
 
 // Router stores the router
 // also comments are hard
+// This will get more work in the future.
 type Router struct {
 	router mux.Router
 }
@@ -22,7 +23,15 @@ var (
 func LoadRoutes() {
 	for v := range routes.GetRoutes() {
 		log.Printf("Loading %s (%s)", v.GetName(), v.GetPath())
-		router.HandleFunc(v.GetPath(), v.ServeHTTP)
+		switch v.GetType() {
+		case routes.Template:
+			router.HandleFunc(v.GetPath(), v.ServeHTTP)
+		case routes.Static:
+			route := v.(*routes.StaticRoute)
+			router.PathPrefix(v.GetPath()).
+				Handler(http.StripPrefix(v.GetPath(),
+					http.FileServer(http.Dir(route.GetFilepath()))))
+		}
 	}
 }
 

@@ -5,6 +5,7 @@ import (
 
 	// Routes
 	_ "github.com/xorith/goweb/routes/home"
+	_ "github.com/xorith/goweb/routes/static"
 )
 
 func main() {

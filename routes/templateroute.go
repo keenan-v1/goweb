@@ -34,6 +34,11 @@ func (route *TemplateRoute) GetModel() *Model {
 	return route.model
 }
 
+// GetType returns Template
+func (route *TemplateRoute) GetType() RouteType {
+	return Template
+}
+
 // GetName returns the name of the route
 func (route *TemplateRoute) GetName() string {
 	return route.Name
@@ -52,13 +57,12 @@ func (route *TemplateRoute) GetTitle() string {
 //ServeHTTP passes the vars along to the proper handler
 func (route *TemplateRoute) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
+	route.parseTemplates()
 	route.Controller(r, vars, route.GetModel())
 	route.View.Execute(w, route.GetModel())
 }
 
-//RegisterTemplate registers a templated route
-func RegisterTemplate(route *TemplateRoute) {
-	routes[route.GetName()] = route
+func (route *TemplateRoute) parseTemplates() {
 	var paths []string
 	for _, v := range route.TemplateFiles {
 		if path, err := filepath.Abs(v); err != nil {
@@ -71,4 +75,9 @@ func RegisterTemplate(route *TemplateRoute) {
 	if route.View, err = template.ParseFiles(paths...); err != nil {
 		log.Printf("Error parsing templates: %#v", err.Error())
 	}
+}
+
+//RegisterTemplate registers a templated route
+func RegisterTemplate(route *TemplateRoute) {
+	routes[route.GetName()] = route
 }
