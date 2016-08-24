@@ -21,8 +21,8 @@ var (
 //LoadRoutes loads routes
 func LoadRoutes() {
 	for v := range routes.GetRoutes() {
-		log.Printf("Loading %s (%s)", v.Name, v.Path)
-		router.HandleFunc(v.Path, v.ServeHTTP)
+		log.Printf("Loading %s (%s)", v.GetName(), v.GetPath())
+		router.HandleFunc(v.GetPath(), v.ServeHTTP)
 	}
 }
 

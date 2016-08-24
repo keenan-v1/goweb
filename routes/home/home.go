@@ -9,19 +9,19 @@ import (
 
 //HomeRoute is our route definition
 var (
-	HomeRoute *routes.Route
+	HomeRoute *routes.TemplateRoute
 )
 
 // init() will define HomeRoute and register it with routes.
 func init() {
-	HomeRoute = &routes.Route{
+	HomeRoute = &routes.TemplateRoute{
 		Name:          "home",
 		Title:         "Home Page",
 		Path:          "/",
 		Controller:    Home,
 		TemplateFiles: []string{"./routes/home/home.html"},
 	}
-	routes.Register(HomeRoute)
+	routes.RegisterTemplate(HomeRoute)
 }
 
 // Model is the model home. hahaha no.
